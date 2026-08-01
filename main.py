@@ -25,9 +25,9 @@ for hour in data:
 if will_rain:
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
-        connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+        connection.login(user=my_email, password=my_password)
         connection.sendmail(
-            from_addr=MY_EMAIL,
+            from_addr=my_email,
             to_addrs="shalomfadare@gmail.com",
             msg="Subject:Rain!\n\nDon't forget to step out with an umbrella, it is likely to rain.")
 
