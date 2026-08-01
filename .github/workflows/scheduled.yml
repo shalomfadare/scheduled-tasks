@@ -35,6 +35,7 @@ jobs:
         env:
           MY_EMAIL: ${{ secrets.MY_EMAIL }}
           MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
           # Force Python output to print in real time (helps debug where it hangs)
           PYTHONUNBUFFERED: "1"
         run: python main.py
