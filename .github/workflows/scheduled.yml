@@ -2,7 +2,7 @@ name: Daily Script
 
 on:
   schedule:
-    - cron: '30 17 * * *'
+    - cron: '55 17 * * *'
   workflow_dispatch:
 
 # Prevents multiple runs from stacking up; cancels any stuck background runs
