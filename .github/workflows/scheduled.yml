@@ -2,26 +2,20 @@ name: Daily Script
 
 on:
   schedule:
-    # ╔═══════════════════════════════════════════════════════════════╗
-    # ║  CHANGE THE LINE BELOW to set when your script runs          ║
-    # ║                                                                ║
-    # ║  Format:  'MINUTE HOUR * * *'                                  ║
-    # ║                                                                ║
-    # ║  Examples:                                                     ║
-    # ║    '0 9 * * *'   = 9:00 AM UTC daily                          ║
-    # ║    '30 14 * * *' = 2:30 PM UTC daily                          ║
-    # ║    '0 0 * * *'   = Midnight UTC daily                         ║
-    # ║                                                                ║
-    # ║  Use https://time.is/UTC to find your local time in UTC       ║
-    # ╚═══════════════════════════════════════════════════════════════╝
-    - cron: '0 9 * * *'
-
-  # This adds a "Run workflow" button so you can test manually
+    - cron: '30 17 * * *'
   workflow_dispatch:
+
+# Prevents multiple runs from stacking up; cancels any stuck background runs
+concurrency:
+  group: daily-script-group
+  cancel-in-progress: true
 
 jobs:
   run:
     runs-on: ubuntu-latest
+    
+    # ⏱️ IF THE SCRIPT HANGS, CANCEL IT AUTOMATICALLY AFTER 10 MINUTES
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -39,8 +33,8 @@ jobs:
 
       - name: Run script
         env:
-          # Your secrets are available as environment variables
-          # Add more secrets in Settings > Secrets > Actions
           MY_EMAIL: ${{ secrets.MY_EMAIL }}
           MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          # Force Python output to print in real time (helps debug where it hangs)
+          PYTHONUNBUFFERED: "1"
         run: python main.py
