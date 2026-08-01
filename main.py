@@ -1,13 +1,11 @@
 import requests
 import smtplib
 import os
-from dotenv import load_dotenv
 
 MY_LATITUDE = 6.606268
 MY_LONGITUDE = 3.375160
-MY_EMAIL = "shalom.devtest@gmail.com"
-MY_PASSWORD = "bwkwhfalwajbfrty"
-load_dotenv()
+my_email = os.environ.get("MY_EMAIL")
+my_password = os.environ.get("MY_PASSWORD")
 api_key = os.environ.get("API_KEY")
 
 parameters = {
